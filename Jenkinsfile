@@ -1,6 +1,6 @@
 node {
 
-    def mvnHome = tool 'Maven'
+    def mvnHome = tool 'maven'
 
     stage('Checkout') {
         echo 'Checking out source code...'
