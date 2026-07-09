@@ -1,31 +1,29 @@
 node {
 
+    def mvnHome = tool 'Maven'
+
     stage('Checkout') {
         echo 'Checking out source code...'
         checkout scm
     }
 
     stage('Compile') {
-        echo 'Compiling Project...'
-        bat 'mvn clean compile'
+        bat "\"${mvnHome}\\bin\\mvn.cmd\" clean compile"
     }
 
     stage('Test') {
-        echo 'Running Tests...'
-        bat 'mvn test'
+        bat "\"${mvnHome}\\bin\\mvn.cmd\" test"
     }
 
     stage('Package') {
-        echo 'Packaging Project...'
-        bat 'mvn clean package'
+        bat "\"${mvnHome}\\bin\\mvn.cmd\" clean package"
     }
 
     stage('Deploy to Nexus') {
-        echo 'Deploying to Nexus...'
-        bat 'mvn deploy -s C:\\MyScriptedPipelineProject\\settings.xml'
+        bat "\"${mvnHome}\\bin\\mvn.cmd\" deploy -s C:\\Users\\Mukunthan\\.m2\\settings.xml"
     }
 
     stage('Success') {
-        echo 'Deployment to Nexus Repository Successful.'
+        echo 'Deployment Successful'
     }
 }
