@@ -1,9 +1,13 @@
 node {
 
-    def mvnHome = tool 'maven'
+    def mvnHome = tool name: 'Maven', type: 'maven'
+
+    stage('Check Maven') {
+        echo "Maven Home = ${mvnHome}"
+        bat "\"${mvnHome}\\bin\\mvn.cmd\" -version"
+    }
 
     stage('Checkout') {
-        echo 'Checking out source code...'
         checkout scm
     }
 
@@ -20,10 +24,6 @@ node {
     }
 
     stage('Deploy to Nexus') {
-        bat "\"${mvnHome}\\bin\\mvn.cmd\" deploy -s C:\\Users\\Mukunthan\\.m2\\settings.xml"
-    }
-
-    stage('Success') {
-        echo 'Deployment Successful'
+        bat "\"${mvnHome}\\bin\\mvn.cmd\" deploy -s settings.xml"
     }
 }
